@@ -9,6 +9,9 @@ type AudioContextValue = {
   pauseBg: () => void
   playTrack: (src: string, opts?: PlayTrackOptions) => Promise<void>
   stopTrack: () => void
+  // prepare a track muted and start it so it can be unmuted later on gesture
+  prepareTrackMuted: (src: string) => Promise<void>
+  unmuteTrack: (volume?: number) => void
   isTrackPlaying: boolean
   setBgVolume: (v: number) => void
 }
@@ -111,6 +114,31 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }
 
+  const prepareTrackMuted = async (src: string) => {
+    if (!trackRef.current) return Promise.reject(new Error('audio-not-ready'))
+    trackRef.current.src = src
+    trackRef.current.muted = true
+    trackRef.current.volume = 0.18
+    try {
+      await trackRef.current.play()
+      // don't set isTrackPlaying to true until unmuted to reflect audible state
+      return Promise.resolve()
+    } catch (e) {
+      return Promise.reject(e)
+    }
+  }
+
+  const unmuteTrack = (volume = 0.18) => {
+    if (!trackRef.current || !bgRef.current) return
+    // duck background when making track audible
+    try {
+      fade(bgRef.current, bgRef.current.volume, 0.12, 250)
+    } catch {}
+    trackRef.current.muted = false
+    trackRef.current.volume = Math.max(0, Math.min(1, volume))
+    setIsTrackPlaying(true)
+  }
+
   const stopTrack = () => {
     if (!trackRef.current || !bgRef.current) return
     trackRef.current.pause()
@@ -121,7 +149,7 @@ export const AudioProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }
 
   return (
-    <AudioCtx.Provider value={{ playBg, pauseBg, playTrack, stopTrack, isTrackPlaying, setBgVolume }}>
+    <AudioCtx.Provider value={{ playBg, pauseBg, playTrack, stopTrack, prepareTrackMuted, unmuteTrack, isTrackPlaying, setBgVolume }}>
       {children}
     </AudioCtx.Provider>
   )

@@ -22,9 +22,9 @@ export default function Home() {
   }, [])
 
   return (
-    <AudioProvider>
+    // <AudioProvider>
       <main className="min-h-screen  bg-[#F6F6F0] overflow-x-hidden">
-        <AutoPlayIkkudi />
+        {/* <AutoPlayIkkudi /> */}
         <FloatingEmojis />
         <Logo />
         <HeroSection showConfetti={showConfetti} />
@@ -36,6 +36,6 @@ export default function Home() {
         <MusicPlayer />
         <FinalSection />
       </main>
-    </AudioProvider>
+    // </AudioProvider>
   )
 }
