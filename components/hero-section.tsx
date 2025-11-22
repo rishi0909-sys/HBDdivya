@@ -45,8 +45,8 @@ export default function HeroSection({ showConfetti }: Props) {
 
       <div className="relative z-10 text-center">
         <div className="mb-8">
-          <div>
-          <h1 className=" h-[400px] text-6xl md:text-7xl font-playpen font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-purple-400 to-purple-300 mb-4 animate-text-glow">
+          <div className="">
+          <h1 className=" h-[250px] text-6xl md:text-7xl font-playpen font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-purple-400 to-purple-300 mb-4 animate-text-glow">
             Happy Birthday Divya
           </h1>
           </div>

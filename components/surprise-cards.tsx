@@ -43,10 +43,11 @@ export default function SurpriseCards() {
   return (
     <section className="py-20 px-4 md:px-8 bg-gradient-to-b from-transparent via-purple-50/30 to-transparent">
       <div className="max-w-6xl mx-auto">
-        <h2 className=" h-[50px] text-4xl md:text-5xl font-playpen font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
+        <div className=" h-[150px]">
+        <h2 className=" h-[700px] text-4xl md:text-5xl font-playpen font-bold text-center mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
           Tap to Reveal Your Birthday Surprises <span className="emoji ml-2 text-foreground">🎀</span>
         </h2>
-        {/* </div> */}
+        </div>
         <p className="text-center text-foreground/60 mb-12">Click each card to discover your wishes</p>
 
         <div className="grid md:grid-cols-2 gap-6">
